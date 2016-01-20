@@ -4,11 +4,11 @@
 %bcond_with python3
 %endif
 
-%define pypi_name ldap3
+%global pypi_name ldap3
 
 Name:       python-%{pypi_name}
 Version:    0.9.8.6
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Strictly RFC 4511 conforming LDAP V3 pure Python client
 
 License:    LGPLv2+
@@ -96,6 +96,9 @@ popd
 %endif # with python3
 
 %changelog
+* Wed Jan 20 2016 Michal Cyprian <mcyprian@redhat.com> - 0.9.8.6-3
+- Replace macro define with global
+
 * Tue Nov 10 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.9.8.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
 

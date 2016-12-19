@@ -8,7 +8,7 @@
 
 Name:       python-%{pypi_name}
 Version:    0.9.8.6
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Strictly RFC 4511 conforming LDAP V3 pure Python client
 
 License:    LGPLv2+
@@ -96,6 +96,9 @@ popd
 %endif # with python3
 
 %changelog
+* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 0.9.8.6-6
+- Rebuild for Python 3.6
+
 * Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.9.8.6-5
 - https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
 

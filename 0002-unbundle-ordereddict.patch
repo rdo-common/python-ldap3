@@ -1,0 +1,40 @@
+From ba523efb86fb88af296d026052c3fc2f810ed67d Mon Sep 17 00:00:00 2001
+From: Igor Gnatenko <i.gnatenko.brain@gmail.com>
+Date: Mon, 2 Jan 2017 09:54:47 +0100
+Subject: [PATCH 2/2] unbundle ordereddict
+
+Signed-off-by: Igor Gnatenko <i.gnatenko.brain@gmail.com>
+---
+ ldap3/abstract/entry.py | 2 +-
+ setup.py                | 2 ++
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/ldap3/abstract/entry.py b/ldap3/abstract/entry.py
+index c650069..fa37585 100644
+--- a/ldap3/abstract/entry.py
++++ b/ldap3/abstract/entry.py
+@@ -28,7 +28,7 @@ import json
+ try:
+     from collections import OrderedDict
+ except ImportError:
+-    from ..utils.ordDict import OrderedDict  # for Python 2.6
++    from ordereddict import OrderedDict  # for Python 2.6
+ 
+ from os import linesep
+ from time import sleep
+diff --git a/setup.py b/setup.py
+index ca555f1..d90c03b 100644
+--- a/setup.py
++++ b/setup.py
+@@ -42,6 +42,8 @@ status = str(version_dict['status'])
+ long_description = str(open('README.rst').read())
+ 
+ install_requires = [i.strip() for i in open('requirements.txt').readlines()]
++if sys.version_info < (2, 7):
++    install_requires.append('ordereddict')
+ if sys.version_info < (2, 7, 9):
+     install_requires.append('backports.ssl_match_host_name')
+ 
+-- 
+2.11.0
+

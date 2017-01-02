@@ -1,101 +1,97 @@
-%if 0%{?fedora}
-%bcond_without python3
-%else
+%if 0%{?rhel} && 0%{?rhel} <= 7
 %bcond_with python3
+%else
+%bcond_without python3
 %endif
 
-%global pypi_name ldap3
+%global modname ldap3
 
-Name:       python-%{pypi_name}
-Version:    0.9.8.6
-Release:    6%{?dist}
-Summary:    Strictly RFC 4511 conforming LDAP V3 pure Python client
+Name:           python-%{modname}
+Version:        2.1.1
+Release:        1%{?dist}
+Summary:        Strictly RFC 4511 conforming LDAP V3 pure Python client
 
-License:    LGPLv2+
-URL:        https://pypi.python.org/pypi/%{pypi_name}/%{version}
-Source0:    https://pypi.python.org/packages/source/l/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+License:        LGPLv2+
+URL:            https://github.com/cannatag/ldap3
+Source0:        %{url}/archive/v%{version}/%{modname}-%{version}.tar.gz
 
-Patch0:     ssl_unbundle.patch
+Patch0001:      0001-unbundle-ssl.patch
+Patch0002:      0002-unbundle-ordereddict.patch
 
-BuildArch:  noarch
+BuildArch:      noarch
+
+%global _description \
+ldap3 is a strictly RFC 4510 conforming LDAP V3 pure Python client library.
+
+%description %{_description}
+
+%package     -n python2-%{modname}
+Summary:        %{summary}
+%{?python_provide:%python_provide python2-%{modname}}
 BuildRequires:  python2-devel
+%if 0%{?rhel} && 0%{?rhel} <= 7
 BuildRequires:  python-setuptools
+Requires:       python-pyasn1
+%else
+BuildRequires:  python2-setuptools
+Requires:       python2-pyasn1
+%endif
+
+%description -n python2-%{modname} %{_description}
+
+Python 2 version.
 
 %if %{with python3}
+%package     -n python3-%{modname}
+Summary:        %{summary}
+%{?python_provide:%python_provide python3-%{modname}}
 BuildRequires:  python3-devel
-%endif # with pyhton3
+BuildRequires:  python3-setuptools
+Requires:       python3-pyasn1
 
-Requires:   python-pyasn1
+%description -n python3-%{modname} %{_description}
 
-%description
-python-%{pypi_name} is a strictly RFC 4511 conforming LDAP V3 pure Python client. 
-The same codebase works with Python, Python 3, PyPy and PyPy3.
-
-%if %{with python3}
-%package    -n python3-%{pypi_name}
-Summary:    Strictly RFC 4511 conforming LDAP V3 pure Python3 client
-
-
-Requires:   python3-pyasn1
-
-%description -n python3-%{pypi_name}
-pyhton3-%{pypi_name} is a strictly RFC 4511 conforming LDAP V3 pure Python client. 
-The same codebase works with Python, Python 3, PyPy and PyPy3.
-
-%endif # with python3
-
+Python 3 version.
+%endif
 
 %prep
-%setup -qc
-mv %{pypi_name}-%{version}/ python2
-pushd python2
-%patch0 -p1
-rm -r %{pypi_name}.egg-info/
-popd
-
-%if %{with python3}
-cp -a python2 python3
-%endif # with python3
-
+%autosetup -n %{modname}-%{version} -p1
+# remove bundled ssl
+rm -vf %{modname}/utils/tls_backport.py docs/manual/source/%{modname}.utils.tls_backport.rst
+# remove bundled ordereddict
+rm -vf %{modname}/utils/ordDict.py
 
 %build
-pushd python2
-%{__python2} setup.py build
-popd
- 
+%py2_build
 %if %{with python3}
-pushd python3
-%{__python3} setup.py build
- popd
-%endif # with python3
+%py3_build
+%endif
 
 %install
+%py2_install
 %if %{with python3}
-pushd python3
-%{__python3} setup.py install -O1 --skip-build --root %{buildroot}
-popd
-%endif # with python3
+%py3_install
+%endif
 
-pushd python2
- %{__python2} setup.py install -O1 --skip-build --root %{buildroot}
-popd
-
-
-%files
-%doc python2/README.rst python2/_version.json
-%license python2/COPYING.txt python2/COPYING.LESSER.txt python2/LICENSE.txt
-%{python2_sitelib}/%{pypi_name}
-%{python2_sitelib}/%{pypi_name}*.egg-info
+%files -n python2-%{modname}
+%license COPYING.LESSER.txt
+%doc README.rst
+%{python2_sitelib}/%{modname}-*.egg-info/
+%{python2_sitelib}/%{modname}/
 
 %if %{with python3}
-%files -n python3-%{pypi_name}
-%doc python3/README.rst  python3/_version.json
-%license python3/COPYING.txt python3/COPYING.LESSER.txt python3/LICENSE.txt
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}*.egg-info
-%endif # with python3
+%files -n python3-%{modname}
+%license COPYING.LESSER.txt
+%doc README.rst
+%{python3_sitelib}/%{modname}-*.egg-info/
+%{python3_sitelib}/%{modname}/
+%endif
 
 %changelog
+* Mon Jan 02 2017 Igor Gnatenko <i.gnatenko.brain@gmail.com> - 2.1.1-1
+- Update to 2.1.1
+- Modernize spec
+
 * Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 0.9.8.6-6
 - Rebuild for Python 3.6
 

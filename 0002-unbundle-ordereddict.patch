@@ -1,4 +1,4 @@
-From ba523efb86fb88af296d026052c3fc2f810ed67d Mon Sep 17 00:00:00 2001
+From 7833bb9f05859e5244da494e1641d8af35a4bc22 Mon Sep 17 00:00:00 2001
 From: Igor Gnatenko <i.gnatenko.brain@gmail.com>
 Date: Mon, 2 Jan 2017 09:54:47 +0100
 Subject: [PATCH 2/2] unbundle ordereddict
@@ -10,7 +10,7 @@ Signed-off-by: Igor Gnatenko <i.gnatenko.brain@gmail.com>
  2 files changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/ldap3/abstract/entry.py b/ldap3/abstract/entry.py
-index c650069..fa37585 100644
+index 3961696..de590cf 100644
 --- a/ldap3/abstract/entry.py
 +++ b/ldap3/abstract/entry.py
 @@ -28,7 +28,7 @@ import json
@@ -21,7 +21,7 @@ index c650069..fa37585 100644
 +    from ordereddict import OrderedDict  # for Python 2.6
  
  from os import linesep
- from time import sleep
+ 
 diff --git a/setup.py b/setup.py
 index ca555f1..d90c03b 100644
 --- a/setup.py

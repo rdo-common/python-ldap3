@@ -1,29 +1,16 @@
-From cd7beee88cc59f0633bd3f9a9fb3bdd9e9f68445 Mon Sep 17 00:00:00 2001
+From fca84371cbc05e052619e8b1ece6103e68d3a0ed Mon Sep 17 00:00:00 2001
 From: Igor Gnatenko <i.gnatenko.brain@gmail.com>
 Date: Mon, 2 Jan 2017 09:48:13 +0100
 Subject: [PATCH 1/2] unbundle ssl
 
 Signed-off-by: Igor Gnatenko <i.gnatenko.brain@gmail.com>
 ---
- docs/manual/source/ldap3.utils.rst | 1 -
- ldap3/core/tls.py                  | 4 ++--
- setup.py                           | 8 +++++++-
- 3 files changed, 9 insertions(+), 4 deletions(-)
+ ldap3/core/tls.py | 4 ++--
+ setup.py          | 8 +++++++-
+ 2 files changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/docs/manual/source/ldap3.utils.rst b/docs/manual/source/ldap3.utils.rst
-index c29271f..29ef33a 100644
---- a/docs/manual/source/ldap3.utils.rst
-+++ b/docs/manual/source/ldap3.utils.rst
-@@ -11,7 +11,6 @@ Submodules
-    ldap3.utils.dn
-    ldap3.utils.log
-    ldap3.utils.ntlm
--   ldap3.utils.tls_backport
-    ldap3.utils.uri
- 
- Module contents
 diff --git a/ldap3/core/tls.py b/ldap3/core/tls.py
-index 2134bad..c55ed36 100644
+index ea702c8..b287855 100644
 --- a/ldap3/core/tls.py
 +++ b/ldap3/core/tls.py
 @@ -38,8 +38,8 @@ except ImportError:

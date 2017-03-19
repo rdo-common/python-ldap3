@@ -7,7 +7,7 @@
 %global modname ldap3
 
 Name:           python-%{modname}
-Version:        2.2.1
+Version:        2.2.2
 Release:        1%{?dist}
 Summary:        Strictly RFC 4511 conforming LDAP V3 pure Python client
 
@@ -88,6 +88,9 @@ rm -vf %{modname}/utils/ordDict.py
 %endif
 
 %changelog
+* Sun Mar 19 2017 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 2.2.2-1
+- Update to 2.2.2
+
 * Thu Feb 16 2017 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 2.2.1-1
 - Update to 2.2.1
 

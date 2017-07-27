@@ -8,7 +8,7 @@
 
 Name:           python-%{modname}
 Version:        2.2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Strictly RFC 4511 conforming LDAP V3 pure Python client
 
 License:        LGPLv2+
@@ -88,6 +88,9 @@ rm -vf %{modname}/utils/ordDict.py
 %endif
 
 %changelog
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Tue May 16 2017 Michal Cyprian <mcyprian@redhat.com> - 2.2.3-1
 - Update to 2.2.3
 

@@ -43,7 +43,7 @@ index 3ba012a..ca555f1 100644
  
 +install_requires = [i.strip() for i in open('requirements.txt').readlines()]
 +if sys.version_info < (2, 7, 9):
-+    install_requires.append('backports.ssl_match_host_name')
++    install_requires.append('backports.ssl_match_hostname')
 +
  setup(name=package_name,
        version=version,

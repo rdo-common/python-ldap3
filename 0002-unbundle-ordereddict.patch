@@ -33,7 +33,7 @@ index ca555f1..d90c03b 100644
 +if sys.version_info < (2, 7):
 +    install_requires.append('ordereddict')
  if sys.version_info < (2, 7, 9):
-     install_requires.append('backports.ssl_match_host_name')
+     install_requires.append('backports.ssl_match_hostname')
  
 -- 
 2.11.0

@@ -1,16 +1,5 @@
-From 7833bb9f05859e5244da494e1641d8af35a4bc22 Mon Sep 17 00:00:00 2001
-From: Igor Gnatenko <i.gnatenko.brain@gmail.com>
-Date: Mon, 2 Jan 2017 09:54:47 +0100
-Subject: [PATCH 2/2] unbundle ordereddict
-
-Signed-off-by: Igor Gnatenko <i.gnatenko.brain@gmail.com>
----
- ldap3/abstract/entry.py | 2 +-
- setup.py                | 2 ++
- 2 files changed, 3 insertions(+), 1 deletion(-)
-
 diff --git a/ldap3/abstract/entry.py b/ldap3/abstract/entry.py
-index 3961696..de590cf 100644
+index ccbe932..199f8ed 100644
 --- a/ldap3/abstract/entry.py
 +++ b/ldap3/abstract/entry.py
 @@ -28,7 +28,7 @@ import json
@@ -23,18 +12,35 @@ index 3961696..de590cf 100644
  from os import linesep
  
 diff --git a/setup.py b/setup.py
-index ca555f1..d90c03b 100644
+index 3ba012a..a85901e 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -42,6 +42,8 @@ status = str(version_dict['status'])
+@@ -23,6 +23,8 @@
+ # along with ldap3 in the COPYING and COPYING.LESSER files.
+ # If not, see <http://www.gnu.org/licenses/>.
+ 
++import sys
++
+ from setuptools import setup
+ from json import load
+ 
+@@ -39,6 +41,10 @@ status = str(version_dict['status'])
+ 
  long_description = str(open('README.rst').read())
  
- install_requires = [i.strip() for i in open('requirements.txt').readlines()]
++install_requires = [i.strip() for i in open('requirements.txt').readlines()]
 +if sys.version_info < (2, 7):
 +    install_requires.append('ordereddict')
- if sys.version_info < (2, 7, 9):
-     install_requires.append('backports.ssl_match_hostname')
- 
--- 
-2.11.0
-
++
+ setup(name=package_name,
+       version=version,
+       packages=['ldap3',
+@@ -56,7 +62,7 @@ setup(name=package_name,
+                 'ldap3.extend.microsoft',
+                 'ldap3.extend.standard'],
+       package_dir={'': package_folder},
+-      install_requires=[i.strip() for i in open('requirements.txt').readlines()],
++      install_requires=install_requires,
+       license=license,
+       author=author,
+       author_email=email,

@@ -8,14 +8,13 @@
 
 Name:           python-%{modname}
 Version:        2.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Strictly RFC 4511 conforming LDAP V3 pure Python client
 
 License:        LGPLv2+
 URL:            https://github.com/cannatag/ldap3
 Source0:        %{url}/archive/v%{version}/%{modname}-%{version}.tar.gz
 
-Patch0001:      0001-unbundle-ssl.patch
 Patch0002:      0002-unbundle-ordereddict.patch
 
 BuildArch:      noarch
@@ -36,6 +35,7 @@ Requires:       python-pyasn1
 BuildRequires:  python2-setuptools
 Requires:       python2-pyasn1
 %endif
+Requires:       python-backports-ssl_match_hostname
 
 %description -n python2-%{modname} %{_description}
 
@@ -48,6 +48,7 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 Requires:       python3-pyasn1
+Requires:       python-backports-ssl_match_hostname
 
 %description -n python3-%{modname} %{_description}
 
@@ -56,8 +57,6 @@ Python 3 version.
 
 %prep
 %autosetup -n %{modname}-%{version} -p1
-# remove bundled ssl
-rm -vf %{modname}/utils/tls_backport.py docs/manual/source/%{modname}.utils.tls_backport.rst
 # remove bundled ordereddict
 rm -vf %{modname}/utils/ordDict.py
 
@@ -88,6 +87,10 @@ rm -vf %{modname}/utils/ordDict.py
 %endif
 
 %changelog
+* Tue Oct 24 2017 Michal Cyprian <mcyprian@redhat.com> - 2.3-3
+- Remove no longer necessary unbundle-ssl patch
+Resolves: rhbz#1494151
+
 * Thu Sep 21 2017 Ralph Bean <rbean@redhat.com> - 2.3-2
 - Fix patch to require correct backports package name on el7.
 

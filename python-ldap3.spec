@@ -7,8 +7,8 @@
 %global modname ldap3
 
 Name:           python-%{modname}
-Version:        2.3
-Release:        3%{?dist}
+Version:        2.4
+Release:        1%{?dist}
 Summary:        Strictly RFC 4511 conforming LDAP V3 pure Python client
 
 License:        LGPLv2+
@@ -87,6 +87,9 @@ rm -vf %{modname}/utils/ordDict.py
 %endif
 
 %changelog
+* Thu Nov 16 2017 Michal Cyprian <mcyprian@redhat.com> - 2.4-1
+- Update to 2.4
+
 * Tue Oct 24 2017 Michal Cyprian <mcyprian@redhat.com> - 2.3-3
 - Remove no longer necessary unbundle-ssl patch
 Resolves: rhbz#1494151

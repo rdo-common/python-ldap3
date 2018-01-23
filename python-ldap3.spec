@@ -1,13 +1,7 @@
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%bcond_with python3
-%else
-%bcond_without python3
-%endif
-
 %global modname ldap3
 
 Name:           python-%{modname}
-Version:        2.4
+Version:        2.4.1
 Release:        1%{?dist}
 Summary:        Strictly RFC 4511 conforming LDAP V3 pure Python client
 
@@ -28,32 +22,25 @@ ldap3 is a strictly RFC 4510 conforming LDAP V3 pure Python client library.
 Summary:        %{summary}
 %{?python_provide:%python_provide python2-%{modname}}
 BuildRequires:  python2-devel
-%if 0%{?rhel} && 0%{?rhel} <= 7
-BuildRequires:  python-setuptools
-Requires:       python-pyasn1
-%else
 BuildRequires:  python2-setuptools
 Requires:       python2-pyasn1
-%endif
-Requires:       python-backports-ssl_match_hostname
+Requires:       python2-backports-ssl_match_hostname
 
 %description -n python2-%{modname} %{_description}
 
 Python 2 version.
 
-%if %{with python3}
 %package     -n python3-%{modname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{modname}}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 Requires:       python3-pyasn1
-Requires:       python-backports-ssl_match_hostname
+Requires:       python2-backports-ssl_match_hostname
 
 %description -n python3-%{modname} %{_description}
 
 Python 3 version.
-%endif
 
 %prep
 %autosetup -n %{modname}-%{version} -p1
@@ -62,15 +49,11 @@ rm -vf %{modname}/utils/ordDict.py
 
 %build
 %py2_build
-%if %{with python3}
 %py3_build
-%endif
 
 %install
 %py2_install
-%if %{with python3}
 %py3_install
-%endif
 
 %files -n python2-%{modname}
 %license COPYING.LESSER.txt
@@ -78,15 +61,16 @@ rm -vf %{modname}/utils/ordDict.py
 %{python2_sitelib}/%{modname}-*.egg-info/
 %{python2_sitelib}/%{modname}/
 
-%if %{with python3}
 %files -n python3-%{modname}
 %license COPYING.LESSER.txt
 %doc README.rst
 %{python3_sitelib}/%{modname}-*.egg-info/
 %{python3_sitelib}/%{modname}/
-%endif
 
 %changelog
+* Tue Jan 23 2018 Igor Gnatenko <ignatenko@redhat.com> - 2.4.1-1
+- Update to 2.4.1
+
 * Thu Nov 16 2017 Michal Cyprian <mcyprian@redhat.com> - 2.4-1
 - Update to 2.4
 

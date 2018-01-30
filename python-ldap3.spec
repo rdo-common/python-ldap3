@@ -6,7 +6,7 @@
 
 Name:           python-%{modname}
 Version:        2.4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Strictly RFC 4511 conforming LDAP V3 pure Python client
 
 License:        LGPLv2+
@@ -28,7 +28,7 @@ Summary:        %{summary}
 BuildRequires:  python2-devel
 BuildRequires:  python2-setuptools
 Requires:       python2-pyasn1
-Requires:       python2-backports-ssl_match_hostname
+Requires:       python-backports-ssl_match_hostname
 
 %description -n python2-%{modname} %{_description}
 
@@ -80,6 +80,9 @@ rm -vf %{modname}/utils/ordDict.py
 %endif
 
 %changelog
+* Tue Jan 30 2018 Alfredo Moralejo <amoralej@redhat.com> - 2.4.1-3
+- Fixed dependencies names for CentOS.
+
 * Tue Jan 30 2018 Alfredo Moralejo <amoralej@redhat.com> - 2.4.1-2
 - Disable python3 builds for non-Fedora builders.
 

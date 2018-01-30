@@ -1,8 +1,12 @@
 %global modname ldap3
 
+%if 0%{?fedora}
+%global with_python3 1
+%endif
+
 Name:           python-%{modname}
 Version:        2.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Strictly RFC 4511 conforming LDAP V3 pure Python client
 
 License:        LGPLv2+
@@ -30,6 +34,7 @@ Requires:       python2-backports-ssl_match_hostname
 
 Python 2 version.
 
+%if 0%{?with_python3}
 %package     -n python3-%{modname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{modname}}
@@ -41,6 +46,7 @@ Requires:       python2-backports-ssl_match_hostname
 %description -n python3-%{modname} %{_description}
 
 Python 3 version.
+%endif
 
 %prep
 %autosetup -n %{modname}-%{version} -p1
@@ -49,11 +55,15 @@ rm -vf %{modname}/utils/ordDict.py
 
 %build
 %py2_build
+%if 0%{?with_python3}
 %py3_build
+%endif
 
 %install
 %py2_install
+%if 0%{?with_python3}
 %py3_install
+%endif
 
 %files -n python2-%{modname}
 %license COPYING.LESSER.txt
@@ -61,13 +71,18 @@ rm -vf %{modname}/utils/ordDict.py
 %{python2_sitelib}/%{modname}-*.egg-info/
 %{python2_sitelib}/%{modname}/
 
+%if 0%{?with_python3}
 %files -n python3-%{modname}
 %license COPYING.LESSER.txt
 %doc README.rst
 %{python3_sitelib}/%{modname}-*.egg-info/
 %{python3_sitelib}/%{modname}/
+%endif
 
 %changelog
+* Tue Jan 30 2018 Alfredo Moralejo <amoralej@redhat.com> - 2.4.1-2
+- Disable python3 builds for non-Fedora builders.
+
 * Tue Jan 23 2018 Igor Gnatenko <ignatenko@redhat.com> - 2.4.1-1
 - Update to 2.4.1
 
